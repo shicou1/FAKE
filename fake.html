@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>AutoMarket</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#111;
+  color:#fff;
+}
+
+/* ===== FORM ===== */
+#form{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.form-box{
+  background:#000;
+  border:2px solid gold;
+  padding:30px;
+  width:320px;
+}
+.form-box h2{text-align:center;color:gold}
+.form-box input, .form-box button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+}
+.form-box button{
+  background:gold;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* ===== NORMAL SITE ===== */
+#site{
+  display:none;
+  padding:20px;
+}
+.cars{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+.car{
+  background:#000;
+  padding:10px;
+  cursor:pointer;
+  transition:.3s;
+}
+.car:hover{transform:scale(1.03)}
+.car img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+
+/* ===== MODAL ===== */
+#modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  z-index:900;
+  justify-content:center;
+  align-items:center;
+}
+.modal-box{
+  background:#000;
+  padding:20px;
+  width:90%;
+  max-width:500px;
+  border:2px solid gold;
+}
+.modal-box img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+.close{
+  color:red;
+  cursor:pointer;
+  float:right;
+}
+
+/* ===== HACK ===== */
+#hack{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:black;
+  color:#00ff66;
+  font-family:monospace;
+  z-index:999;
+  text-align:center;
+  padding-top:15vh;
+}
+.glitch{animation:flicker .15s infinite}
+@keyframes flicker{50%{opacity:.4}}
+
+.rus{
+  display:none;
+  font-size:24px;
+  margin-top:25px;
+  animation:move 2s infinite alternate;
+}
+@keyframes move{
+  from{transform:translateX(-20px)}
+  to{transform:translateX(20px)}
+}
+
+#prank{
+  display:none;
+  color:red;
+  margin-top:40px;
+  font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="sound" src="c:\site\HUD Activation Sound Effect - 2MirrorsDialogue.mp3"></audio>
+
+<!-- FORM -->
+<div id="form">
+  <div class="form-box">
+    <h2>Vérification</h2>
+    <input placeholder="Gmail">
+    <input type="number" placeholder="Âge">
+    <button onclick="enter()">Continuer</button>
+  </div>
+</div>
+
+<!-- SITE -->
+<div id="site">
+  <h1>🚗 AutoMarket</h1>
+  <button id="exitBtn" onclick="forceHack()"
+  style="background:#900;color:white;border:none;padding:8px 15px;cursor:pointer;margin-bottom:20px;">
+  Exit
+  </button>
+  <p>Meilleures voitures disponibles</p>
+
+  <div class="cars">
+    <div class="car" onclick="openCar('BMW M4 2022','https://images.unsplash.com/photo-1503376780353-7e6692767b70','Moteur 3.0L • 510ch • 0-100: 3.9s')">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
+      <p>BMW M4 – 2022</p>
+    </div>
+
+    <div class="car" onclick="openCar('Audi RS7','https://images.unsplash.com/photo-1549924231-f129b911e442','V8 Biturbo • 600ch • AWD')">
+      <img src="https://images.unsplash.com/photo-1549924231-f129b911e442">
+      <p>Audi RS7</p>
+    </div>
+
+    <div class="car" onclick="openCar('Mercedes AMG','https://images.unsplash.com/photo-1511910849309-0dffb8785146','AMG Performance • Luxe Sport')">
+      <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146">
+      <p>Mercedes AMG</p>
+    </div>
+
+    <div class="car" onclick="openCar('Lamborghini Huracan','https://images.unsplash.com/photo-1525609004556-c46c7d6cf023','V10 • 610ch • Supercar')">
+      <img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023">
+      <p>Lamborghini Huracan</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="modal-box">
+    <span class="close" onclick="closeModal()">X</span>
+    <h2 id="carTitle"></h2>
+    <img id="carImg">
+    <p id="carInfo"></p>
+  </div>
+</div>
+
+<!-- HACK -->
+<div id="hack">
+  <h1 class="glitch">⚠ SYSTEM HACKED ⚠</h1>
+  <div class="rus" id="rus">
+   ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…<br>
+    ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧЕН ДОСТУП ПОЛУЧ<br>
+    ЛОКАЦИЯ: ЛОКАЦИЯ: ЛОКАЦИЯ: ЛОКАЦИЯ: ЛОКАЦИЯ: ЛОКАЦИЯ: ЛОКАЦИЯ: <br>ALGERIA – ALGER ALGERIA – ALGER ALGERIA – ALGER ALGERIA – ALGER ALGERIA – ALGER ALGERIA – ALGER ALGERIA – ALGER ALGERIA – ALGER  ALGERIA – ALGER  ALGERIA – ALGER  ALGERIA – ALGER  ALGERIA  <br>
+ ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…ВЗЛОМ СИСТЕМЫ…<br>
+  </div>
+  <div id="prank">MATKHAFCH MA SRALEK WALOU <br>
+ RAK JEZT TEHRICHA BRK <BR> 
+  HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH <BR></div>
+</div>
+
+<script>
+let hacked = false;
+
+function openCar(title,img,info){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("carTitle").innerText=title;
+  document.getElementById("carImg").src=img;
+  document.getElementById("carInfo").innerText=info;
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function startHack(){
+  if(hacked) return;
+  hacked = true;
+
+  document.getElementById("hack").style.display="block";
+
+  // الروسية + الصوت مع بعض
+  document.getElementById("rus").style.display="block";
+  document.getElementById("sound").play();
+
+  // المقلب بعد 10 ثواني (منفصل)
+  setTimeout(()=>{
+    document.getElementById("prank").style.display="block";
+  },10000);
+}
+
+function forceHack(){
+  startHack();
+}
+
+function enter(){
+  document.getElementById("form").style.display="none";
+  document.getElementById("site").style.display="block";
+
+  // الهـاك التلقائي بعد 15 ثانية
+  setTimeout(()=>{
+    startHack();
+  },15000);
+}
+</script>
+
+</body>
+</html>
